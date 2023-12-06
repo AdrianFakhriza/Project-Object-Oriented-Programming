@@ -2,8 +2,7 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Vector;
 import service.Controller;
 import models.Kendaraan;
@@ -22,6 +21,7 @@ public class Catalog {
 
     WindowLayout layout = new WindowLayout();
 
+
     public void initData(){
         // initialize table
         Vector<String> columnNames = new Vector<>();
@@ -32,6 +32,12 @@ public class Catalog {
         columnNames.add("Tahun Produksi");
         columnNames.add("Harga Sewa");
 
+        DefaultTableModel model = getDefaultTableModel(columnNames);
+        catalogTable.setModel(model);
+        catalogTable.setDefaultEditor(Object.class, null);
+    }
+
+    private DefaultTableModel getDefaultTableModel(Vector<String> columnNames) {
         Vector<Vector<Object>> data = new Vector<>();
         for (Kendaraan k : controllerKendaraan.getKendaraan()) {
             Vector<Object> row = new Vector<>();
@@ -45,13 +51,14 @@ public class Catalog {
         }
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        catalogTable.setModel(model);
-        catalogTable.setDefaultEditor(Object.class, null);
+        return model;
     }
 
     public JPanel getCatalogPanel() {
         return CatalogPanel;
     }
+
+
 
     public Catalog() {
         initData();
@@ -83,8 +90,20 @@ public class Catalog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = catalogTable.getSelectedRow();
+
+                if (rowSelected == -1) {
+                    JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus!");
+                    return;
+                }
                 controllerKendaraan.removeKendaraan(rowSelected);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        initData();
+                    }
+                });
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
+
             }
         });
         refreshButton.addActionListener(new ActionListener() {
@@ -93,5 +112,10 @@ public class Catalog {
                 initData();
             }
         });
+
+        if (controllerKendaraan.getKendaraan().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data kosong!");
+        }
+
     }
 }

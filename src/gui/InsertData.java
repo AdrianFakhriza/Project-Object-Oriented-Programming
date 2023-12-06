@@ -48,12 +48,17 @@ public class InsertData {
                 jumlahPenumpang = Integer.parseInt(passengerCount.getText());
                 hargaSewa = Integer.parseInt(VehicleRentPrice.getText());
 
-                if (jenisKendaraan.equals("Mobil")) {
+                if (jenisKendaraan.isBlank() || modelKendaraan.isBlank() || warna.isBlank() || tahunProduksi == 0 || jumlahPenumpang == 0 || hargaSewa == 0) {
+                    JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
+                    return;
+                }
+
+                if (jenisKendaraan.equalsIgnoreCase("Mobil")) {
                     Mobil mobil = new Mobil(jenisKendaraan, modelKendaraan, warna, jumlahPenumpang, tahunProduksi, hargaSewa);
                     controllerKendaraan.addKendaraan(mobil);
                     Status.setText("Mobil berhasil ditambahkan!");
 
-                } else if (jenisKendaraan.equals("Motor")) {
+                } else if (jenisKendaraan.equalsIgnoreCase("Motor")) {
                     Motor motor = new Motor(jenisKendaraan, modelKendaraan, warna, jumlahPenumpang, tahunProduksi, hargaSewa);
                     controllerKendaraan.addKendaraan(motor);
                     Status.setText("Motor berhasil ditambahkan!");

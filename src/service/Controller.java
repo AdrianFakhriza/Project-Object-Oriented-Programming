@@ -43,8 +43,3 @@ public class Controller {
         }
     }
 }
-
-// Reference:
-// https://stackoverflow.com/questions/20526917/load-arraylist-data-into-jtable
-// https://docs.oracle.com/javase/tutorial/uiswing/events/listselectionlistener.html
-// https://www.geeksforgeeks.org/java-swing-jtable/

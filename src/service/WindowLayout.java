@@ -12,6 +12,4 @@ public class WindowLayout {
     public int getHeight() {
         return height / 2 - 100;
     }
-
-
 }
