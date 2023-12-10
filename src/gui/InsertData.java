@@ -3,11 +3,9 @@ package gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import models.*;
 import service.Controller;
-import gui.Catalog;
 
 public class InsertData {
 
@@ -39,7 +37,8 @@ public class InsertData {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String jenisKendaraan, modelKendaraan, warna;
-                int tahunProduksi, jumlahPenumpang, hargaSewa;
+                int tahunProduksi, jumlahPenumpang;
+                double hargaSewa;
 
                 jenisKendaraan = VehicleType.getText();
                 modelKendaraan = VehicleModel.getText();
@@ -56,12 +55,11 @@ public class InsertData {
                 if (jenisKendaraan.equalsIgnoreCase("Mobil")) {
                     Mobil mobil = new Mobil(jenisKendaraan, modelKendaraan, warna, jumlahPenumpang, tahunProduksi, hargaSewa);
                     controllerKendaraan.addKendaraan(mobil);
-                    Status.setText("Mobil berhasil ditambahkan!");
-
+                    JOptionPane.showMessageDialog(null, "Mobil berhasil ditambahkan!");
                 } else if (jenisKendaraan.equalsIgnoreCase("Motor")) {
                     Motor motor = new Motor(jenisKendaraan, modelKendaraan, warna, jumlahPenumpang, tahunProduksi, hargaSewa);
                     controllerKendaraan.addKendaraan(motor);
-                    Status.setText("Motor berhasil ditambahkan!");
+                    JOptionPane.showMessageDialog(null, "Motor berhasil ditambahkan!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Jenis kendaraan tidak valid!");
                 }

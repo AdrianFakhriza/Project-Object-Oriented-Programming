@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.Vector;
+
 import service.Controller;
 import models.Kendaraan;
 import service.WindowLayout;
@@ -16,7 +17,7 @@ public class Catalog {
     private JButton sewaButton;
     private JButton editButton;
     private JButton deleteButton;
-    private JButton refreshButton;
+//    private JButton refreshButton;
     Controller controllerKendaraan = new Controller();
 
     WindowLayout layout = new WindowLayout();
@@ -78,9 +79,25 @@ public class Catalog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = catalogTable.getSelectedRow();
+
                 JFrame frame = new JFrame("Edit Data");
                 frame.setLocation(layout.getWidth(), layout.getHeight());
+                if (rowSelected == -1) {
+                    JOptionPane.showMessageDialog(null, "Pilih data yang ingin diubah!");
+                    return;
+                }
                 frame.setContentPane(new EditData(rowSelected).getEditDataPanel());
+                frame.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                initData();
+                            }
+                        });
+                    }
+                });
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
@@ -103,19 +120,7 @@ public class Catalog {
                     }
                 });
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
-
             }
         });
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                initData();
-            }
-        });
-
-        if (controllerKendaraan.getKendaraan().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Data kosong!");
-        }
-
     }
 }

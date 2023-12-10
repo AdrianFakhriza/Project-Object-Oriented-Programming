@@ -8,7 +8,7 @@ public class Motor extends Kendaraan{
                  int tahunProduksi,
                  double hargaSewa) {
         super(jenisKendaraan, modelKendaran, warna, tahunProduksi, hargaSewa);
-        this.jumlahPenumpang = 2;
+        this.jumlahPenumpang = jumlahPenumpang;
     }
 
     @Override

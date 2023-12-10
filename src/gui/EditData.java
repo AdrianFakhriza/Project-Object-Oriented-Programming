@@ -29,6 +29,10 @@ public class EditData {
         return panelEditData;
     }
     public EditData(int rowSelected) {
+        SwingUtilities.invokeLater(()->{
+            Catalog catalog = new Catalog();
+            catalog.initData();
+        });
         Vector<Kendaraan> listKendaraan = controllerKendaraan.getKendaraan();
 
         String jenisKendaraan, modelKendaraan, warna;
