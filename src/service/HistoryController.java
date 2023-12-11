@@ -14,7 +14,9 @@ public class HistoryController {
     public void removeTransaksi(int index) {
         listTransaksi.remove(index);
     }
-
+    public void removeAll(){
+        listTransaksi.removeAllElements();
+    }
     public Vector<Transaksi> getListTransaksi() {
         return listTransaksi;
     }
